@@ -1,0 +1,30 @@
+# The factory bank. A program's CATEGORY is a structured field, never a guess
+# from prose: the PCM 91's preset generator chose which programs were echo
+# programs by substring-matching the user guide's English, and 93 of 433 reverbs
+# measured as delays because a sentence saying the pre-echoes were OFF is what
+# switched them ON.
+#
+# TODO(new machine): replace with the real bank, decoded from the machine's own
+# sysex or ROM. Sixteen stand-ins is enough to make the probes meaningful and
+# not enough to mean anything musically.
+#
+# Category is from the shared sound-type list (Bass Lead Pad Strings Pluck Keys
+# Brass Bell FX Drum Seq Vocal Other). A list that puts most of the bank in
+# "Other" is the wrong list.
+# id,name,category,osc_wave,osc_tune,osc_fine,sub_level,cutoff,resonance,key_track,env_amount,attack,decay,sustain,release,lfo_rate,lfo_depth,delay_time,delay_mix
+A00,Init Voice,Other,0,0,0,0,8000,0.00,0.00,0.00,0.005,0.400,0.80,0.300,4.00,0.00,300,0.00
+A01,Deep Bass,Bass,1,-12,0,0.60,420,0.35,0.30,0.45,0.002,0.220,0.30,0.120,3.00,0.00,250,0.00
+A02,Rubber Bass,Bass,0,-12,4,0.30,700,0.60,0.45,0.70,0.003,0.180,0.15,0.100,5.00,0.05,180,0.00
+A03,Saw Lead,Lead,0,0,7,0.00,5200,0.28,0.60,0.30,0.004,0.500,0.85,0.250,5.50,0.08,375,0.18
+A04,Sync Lead,Lead,1,12,-6,0.00,7400,0.45,0.70,0.25,0.002,0.350,0.70,0.180,6.50,0.12,250,0.12
+A05,Warm Pad,Pad,2,0,3,0.20,2600,0.15,0.25,0.35,1.400,2.400,0.90,2.200,0.60,0.20,500,0.25
+A06,Glass Pad,Pad,2,12,-4,0.00,4800,0.22,0.40,0.20,2.100,3.000,0.85,3.100,0.35,0.30,750,0.30
+A07,String Ens,Strings,0,0,6,0.00,3400,0.18,0.35,0.28,0.900,1.800,0.88,1.400,4.80,0.10,333,0.22
+A08,Cello Bow,Strings,0,-12,-5,0.15,1800,0.30,0.50,0.40,0.700,1.500,0.82,1.100,3.20,0.14,500,0.16
+A09,Pluck Keys,Pluck,1,0,0,0.00,6200,0.40,0.75,0.55,0.001,0.260,0.05,0.180,2.00,0.00,187,0.20
+A10,Wire Pluck,Pluck,0,12,2,0.00,9000,0.55,0.85,0.60,0.001,0.150,0.02,0.120,7.00,0.06,125,0.28
+A11,Electric Keys,Keys,2,0,-2,0.10,5600,0.12,0.55,0.22,0.003,0.900,0.55,0.400,1.20,0.05,250,0.10
+A12,Bell Tine,Bell,2,24,5,0.00,11000,0.20,0.90,0.15,0.001,1.200,0.10,0.900,0.80,0.04,375,0.24
+A13,Brass Sect,Brass,1,0,-3,0.00,4200,0.25,0.45,0.65,0.080,0.600,0.75,0.300,4.20,0.09,300,0.14
+A14,Noise Sweep,FX,1,0,20,0.00,900,0.85,0.10,0.95,0.600,4.000,0.40,3.500,0.18,0.65,666,0.35
+A15,Seq Blip,Seq,1,0,0,0.00,3000,0.65,0.80,0.80,0.001,0.090,0.00,0.060,8.00,0.00,125,0.30

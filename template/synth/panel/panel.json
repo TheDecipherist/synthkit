@@ -1,0 +1,304 @@
+{
+ "name": "ExampleSynth",
+ "size": {
+  "width": 1240,
+  "height": 486
+ },
+ "theme": "arcturus-navy",
+ "header": {
+  "brand": "The Decipherist",
+  "title": "{{DISPLAY}}"
+ },
+ "sections": [
+  {
+   "id": "oscillator",
+   "title": "OSCILLATOR",
+   "rect": [
+    40,
+    74,
+    372,
+    166
+   ],
+   "style": "outline",
+   "controls": [
+    {
+     "type": "knob",
+     "id": "osc_wave",
+     "x": 100,
+     "y": 148,
+     "r": 27,
+     "label": "Wave",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "osc_tune",
+     "x": 184,
+     "y": 148,
+     "r": 27,
+     "label": "Tune",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "osc_fine",
+     "x": 268,
+     "y": 148,
+     "r": 27,
+     "label": "Fine",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "sub_level",
+     "x": 352,
+     "y": 148,
+     "r": 27,
+     "label": "Sub Level",
+     "labelBelow": true
+    }
+   ]
+  },
+  {
+   "id": "filter",
+   "title": "FILTER",
+   "rect": [
+    426,
+    74,
+    372,
+    166
+   ],
+   "style": "outline",
+   "controls": [
+    {
+     "type": "knob",
+     "id": "cutoff",
+     "x": 486,
+     "y": 148,
+     "r": 27,
+     "label": "Cutoff",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "resonance",
+     "x": 570,
+     "y": 148,
+     "r": 27,
+     "label": "Resonance",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "key_track",
+     "x": 654,
+     "y": 148,
+     "r": 27,
+     "label": "Cutoff Key Track",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "env_amount",
+     "x": 738,
+     "y": 148,
+     "r": 27,
+     "label": "Env Amount",
+     "labelBelow": true
+    }
+   ]
+  },
+  {
+   "id": "envelope",
+   "title": "ENVELOPE",
+   "rect": [
+    812,
+    74,
+    372,
+    166
+   ],
+   "style": "outline",
+   "controls": [
+    {
+     "type": "knob",
+     "id": "attack",
+     "x": 872,
+     "y": 148,
+     "r": 27,
+     "label": "Attack",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "decay",
+     "x": 956,
+     "y": 148,
+     "r": 27,
+     "label": "Decay",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "sustain",
+     "x": 1040,
+     "y": 148,
+     "r": 27,
+     "label": "Sustain",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "release",
+     "x": 1124,
+     "y": 148,
+     "r": 27,
+     "label": "Release",
+     "labelBelow": true
+    }
+   ]
+  },
+  {
+   "id": "modulation",
+   "title": "MODULATION",
+   "rect": [
+    40,
+    256,
+    204,
+    166
+   ],
+   "style": "outline",
+   "controls": [
+    {
+     "type": "knob",
+     "id": "lfo_rate",
+     "x": 100,
+     "y": 330,
+     "r": 27,
+     "label": "LFO Rate",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "lfo_depth",
+     "x": 184,
+     "y": 330,
+     "r": 27,
+     "label": "LFO to Cutoff",
+     "labelBelow": true
+    }
+   ]
+  },
+  {
+   "id": "delay",
+   "title": "DELAY",
+   "rect": [
+    258,
+    256,
+    204,
+    166
+   ],
+   "style": "outline",
+   "controls": [
+    {
+     "type": "knob",
+     "id": "delay_time",
+     "x": 318,
+     "y": 330,
+     "r": 27,
+     "label": "Delay Time",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "delay_mix",
+     "x": 402,
+     "y": 330,
+     "r": 27,
+     "label": "Delay Mix",
+     "labelBelow": true
+    }
+   ]
+  },
+  {
+   "id": "output",
+   "title": "OUTPUT",
+   "rect": [
+    476,
+    256,
+    120,
+    166
+   ],
+   "style": "outline",
+   "controls": [
+    {
+     "type": "knob",
+     "id": "master",
+     "x": 536,
+     "y": 330,
+     "r": 27,
+     "label": "Master Volume",
+     "labelBelow": true
+    }
+   ]
+  },
+  {
+   "id": "program",
+   "title": "PROGRAM",
+   "rect": [
+    610,
+    256,
+    590,
+    166
+   ],
+   "style": "outline",
+   "controls": [
+    {
+     "type": "screen",
+     "id": "screen.main",
+     "rect": [
+      628,
+      290,
+      236,
+      62
+     ]
+    },
+    {
+     "type": "cap",
+     "id": "program.down",
+     "x": 882,
+     "y": 292,
+     "w": 62,
+     "h": 26,
+     "label": "PREV"
+    },
+    {
+     "type": "cap",
+     "id": "program.up",
+     "x": 882,
+     "y": 326,
+     "w": 62,
+     "h": 26,
+     "label": "NEXT"
+    },
+    {
+     "type": "cap",
+     "id": "program.write",
+     "x": 954,
+     "y": 292,
+     "w": 62,
+     "h": 26,
+     "label": "WRITE"
+    },
+    {
+     "type": "cap",
+     "id": "panic",
+     "x": 954,
+     "y": 326,
+     "w": 62,
+     "h": 26,
+     "label": "PANIC"
+    }
+   ]
+  }
+ ]
+}

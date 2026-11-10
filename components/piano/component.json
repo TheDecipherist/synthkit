@@ -1,0 +1,38 @@
+{
+  "name": "piano",
+  "version": "1.0.0",
+  "_about": "A MULTISAMPLED ACOUSTIC PIANO AS A BUILDING BLOCK. The loader and its five laws live in dsp/PianoSamples.h; these are the nine controls a host exposes on top of it. Every one shapes a RECORDING rather than modelling a string, which is the honest description and the reason they are [EAR] - a sampled piano cannot re-strike a string, so each control is the audible consequence of its name applied to the sample. For the modelled alternative see dspblocks/include/dsp/PianoString.h, which is a different instrument.",
+  "_ids": "LOCAL names. A host maps them to its own frozen ids in one adapter, as Solera does in Source/Steinway.h.",
+  "params": [
+    { "id": "model", "name": "Model", "kind": "choice", "choices": ["Steinway B", "Upright", "Honky Tonk"], "default": 0,
+      "_meaning": "WHICH RECORDING SET. One folder each, and the list is what can actually be had: the University of Iowa's Steinway (public domain) and two FreePats sets (CC0). A Bosendorfer and a Yamaha C7 were researched and are NOT obtainable under a free licence, so they are not offered - a window naming an instrument the machine does not have is a lie the player cannot see through.",
+      "provenance": "[REF] the three sets' own pages, named in each folder's README" },
+    { "id": "stretch", "min": 0.0, "max": 1.0, "default": 0.5,
+      "_meaning": "STRETCH TUNING, and the only one of the nine that belongs in the PITCH sum rather than after it. A real piano is tuned wide - the top sharp, the bottom flat, nothing in the middle - because the strings are stiff and their partials are not exact multiples. At 0 the keyboard is equal-tempered, which is what a sampler normally gives and is not what a piano sounds like.",
+      "provenance": "[EAR] the amount; the shape is the Railsback curve's" },
+    { "id": "decay", "min": 0.0, "max": 1.0, "default": 0.5,
+      "_meaning": "How long a held note rings, as a scale on the recording's own decay.", "provenance": "[EAR]" },
+    { "id": "damping", "min": 0.0, "max": 1.0, "default": 0.5,
+      "_meaning": "The damper, and it only touches a note the key has LET GO of - that is what a damper is. A held note is unchanged, which is why a gate that holds the note measures this as dead.",
+      "provenance": "[EAR]" },
+    { "id": "hammer_hardness", "min": 0.0, "max": 1.0, "default": 0.5,
+      "_meaning": "A hard hammer is bright and a soft one is not. A one-pole on the sample, open at 1.", "provenance": "[EAR]" },
+    { "id": "hammer_position", "min": 0.0, "max": 1.0, "default": 0.5,
+      "_meaning": "Where the hammer strikes decides which partial is missing: a string struck at 1/n has no nth harmonic. That is a comb, and a comb is what this is.",
+      "provenance": "[EAR] the depth; the missing-partial law is the string's own" },
+    { "id": "soundboard", "min": 0.0, "max": 1.0, "default": 0.5,
+      "_meaning": "The body the strings are mounted on, which rings with everything played. Three low resonances.", "provenance": "[EAR]" },
+    { "id": "unison", "min": 0.0, "max": 1.0, "default": 0.5,
+      "_meaning": "A piano note is two or three strings very slightly apart, and that beat is most of why a piano sounds alive rather than like one string. A second read of the same sample, detuned a few cents.",
+      "provenance": "[EAR]" },
+    { "id": "two_stage", "min": 0.0, "max": 1.0, "default": 0.5,
+      "_meaning": "A release that falls fast and then slowly, which is what a real damper does: it grabs, then the remaining energy leaks away. Acts only after the key is released, with `damping`.",
+      "provenance": "[EAR], and the name is the Alesis Andromeda A6's for the same shape" }
+  ],
+  "samples": {
+    "_about": "What the host puts in a folder. One folder per model.",
+    "naming": "Piano.<dyn>.<note>.<ext>, dyn one of pp/mf/ff, note spelled with flats (Bb4), ext flac preferred and wav read as a fallback.",
+    "keys": "21 to 108, A0 to C8. A key with no recording is transposed from the nearest that has one; it is never borrowed from another dynamic unless that dynamic is entirely empty.",
+    "layers": "Three is the design. A set with one or two leaves the others empty and the loader serves them from the nearest populated side, preferring the softer."
+  }
+}

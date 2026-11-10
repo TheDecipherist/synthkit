@@ -1,0 +1,217 @@
+{
+  "_about": "panel control id -> what it does. kind: value (0..1 onto a plugin parameter), button (an action), screen. `param` is the plugin parameter id, which is the SAME string the generated parameter table carries - there is exactly one place a parameter's identity lives. TODO(new machine): replace with the machine's own controls.",
+  "_why_this_file_is_checked": "The Reverb 4000's bindings.json was compiled into the binary and read by NO code at all: the real binding was a hard-coded if chain, so the file said one thing, the code did another, and nothing could notice. 68 of 189 rows were silent - 36% of the machine. tools/controls_probe.cpp checks this file against the editor's own handlers in BOTH directions, and measures each control in the audio.",
+  "bindings": {
+    "osc_wave": {
+      "kind": "value",
+      "param": "osc_wave",
+      "name": "Oscillator Wave",
+      "range": [
+        0.0,
+        2.0
+      ],
+      "unit": "",
+      "provenance": "[REF] a stand-in: saw / square / triangle"
+    },
+    "osc_tune": {
+      "kind": "value",
+      "param": "osc_tune",
+      "name": "Oscillator Tune",
+      "range": [
+        -24.0,
+        24.0
+      ],
+      "unit": "semitones",
+      "provenance": "[REF]"
+    },
+    "osc_fine": {
+      "kind": "value",
+      "param": "osc_fine",
+      "name": "Oscillator Fine",
+      "range": [
+        -50.0,
+        50.0
+      ],
+      "unit": "cents",
+      "provenance": "[REF]"
+    },
+    "sub_level": {
+      "kind": "value",
+      "param": "sub_level",
+      "name": "Sub Level",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "unit": "",
+      "provenance": "[REF]"
+    },
+    "cutoff": {
+      "kind": "value",
+      "param": "cutoff",
+      "name": "Filter Cutoff",
+      "range": [
+        20.0,
+        18000.0
+      ],
+      "unit": "Hz",
+      "provenance": "[REF]"
+    },
+    "resonance": {
+      "kind": "value",
+      "param": "resonance",
+      "name": "Filter Resonance",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "unit": "",
+      "provenance": "[REF]"
+    },
+    "key_track": {
+      "kind": "value",
+      "param": "key_track",
+      "name": "Cutoff Key Track",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "unit": "",
+      "provenance": "[REF] the patch's OWN key track - see docs/laws.md on the term with no parameter behind it"
+    },
+    "env_amount": {
+      "kind": "value",
+      "param": "env_amount",
+      "name": "Filter Env Amount",
+      "range": [
+        -1.0,
+        1.0
+      ],
+      "unit": "",
+      "provenance": "[REF]"
+    },
+    "attack": {
+      "kind": "value",
+      "param": "attack",
+      "name": "Amp Attack",
+      "range": [
+        0.001,
+        8.0
+      ],
+      "unit": "s",
+      "provenance": "[REF]"
+    },
+    "decay": {
+      "kind": "value",
+      "param": "decay",
+      "name": "Amp Decay",
+      "range": [
+        0.005,
+        8.0
+      ],
+      "unit": "s",
+      "provenance": "[REF]"
+    },
+    "sustain": {
+      "kind": "value",
+      "param": "sustain",
+      "name": "Amp Sustain",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "unit": "",
+      "provenance": "[REF]"
+    },
+    "release": {
+      "kind": "value",
+      "param": "release",
+      "name": "Amp Release",
+      "range": [
+        0.005,
+        8.0
+      ],
+      "unit": "s",
+      "provenance": "[REF]"
+    },
+    "lfo_rate": {
+      "kind": "value",
+      "param": "lfo_rate",
+      "name": "LFO Rate",
+      "range": [
+        0.05,
+        20.0
+      ],
+      "unit": "Hz",
+      "provenance": "[REF]"
+    },
+    "lfo_depth": {
+      "kind": "value",
+      "param": "lfo_depth",
+      "name": "LFO to Cutoff",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "unit": "",
+      "provenance": "[REF]"
+    },
+    "delay_time": {
+      "kind": "value",
+      "param": "delay_time",
+      "name": "Delay Time",
+      "range": [
+        10.0,
+        1500.0
+      ],
+      "unit": "ms",
+      "provenance": "[REF]"
+    },
+    "delay_mix": {
+      "kind": "value",
+      "param": "delay_mix",
+      "name": "Delay Mix",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "unit": "",
+      "provenance": "[REF]"
+    },
+    "master": {
+      "kind": "value",
+      "param": "master",
+      "name": "Master Volume",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "unit": "",
+      "provenance": "[REF]"
+    },
+    "program.down": {
+      "kind": "button",
+      "action": "program.down",
+      "name": "previous program"
+    },
+    "program.up": {
+      "kind": "button",
+      "action": "program.up",
+      "name": "next program"
+    },
+    "program.write": {
+      "kind": "button",
+      "action": "program.write",
+      "name": "open the Patch Explorer at the user bank"
+    },
+    "panic": {
+      "kind": "button",
+      "action": "panic",
+      "name": "all notes off"
+    },
+    "screen.main": {
+      "kind": "screen",
+      "shows": "program name and number"
+    }
+  }
+}

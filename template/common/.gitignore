@@ -1,0 +1,13 @@
+build/
+build-*/
+node_modules/
+__pycache__/
+.DS_Store
+# Firmware images and factory banks are vendor content. Keep them OUT of the
+# repo while it is public, and out of git history whatever the repo's state:
+# a private repo can be made public, and history is forever.
+firmware/
+banks/
+*.syx
+*.bin
+*.rom

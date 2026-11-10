@@ -1,0 +1,31 @@
+# The parameter table. ONE place. A range that lives in both a spec table and a
+# parameter registration will disagree, and you cannot tell by reading which of
+# the two is decorative (playbook 17a - third occurrence in one repo).
+#
+# provenance is part of the test surface, not decoration. Any patch that sounds
+# wrong gets its parameters' provenance checked FIRST, and a row is promoted the
+# moment it is confirmed. See docs/provenance.md for the tags.
+#
+# TODO(new machine): replace every row. These are a generic subtractive synth's
+# parameters and none of them is anybody's machine. Take ranges from the
+# FIRMWARE's own arithmetic, never from a manual's rounded printed numbers: the
+# Reverb 4000's grid is 20*2^(n/24), so its printed "500 Hz" is 507.968 and
+# typing the printed number clamped 91 stored values across 174 programs.
+# id,name,kind,min,max,default,unit,provenance
+osc_wave,Oscillator Wave,choice,0,2,0,,[REF] a stand-in: saw / square / triangle
+osc_tune,Oscillator Tune,float,-24,24,0,semitones,[REF]
+osc_fine,Oscillator Fine,float,-50,50,0,cents,[REF]
+sub_level,Sub Level,float,0,1,0,,[REF]
+cutoff,Filter Cutoff,float,20,18000,8000,Hz,[REF]
+resonance,Filter Resonance,float,0,1,0,,[REF]
+key_track,Cutoff Key Track,float,0,1,0,,[REF] the patch's OWN key track - see docs/laws.md on the term with no parameter behind it
+env_amount,Filter Env Amount,float,-1,1,0,,[REF]
+attack,Amp Attack,float,0.001,8,0.005,s,[REF]
+decay,Amp Decay,float,0.005,8,0.4,s,[REF]
+sustain,Amp Sustain,float,0,1,0.8,,[REF]
+release,Amp Release,float,0.005,8,0.3,s,[REF]
+lfo_rate,LFO Rate,float,0.05,20,4,Hz,[REF]
+lfo_depth,LFO to Cutoff,float,0,1,0,,[REF]
+delay_time,Delay Time,float,10,1500,300,ms,[REF]
+delay_mix,Delay Mix,float,0,1,0,,[REF]
+master,Master Volume,float,0,1,0.8,,[REF]

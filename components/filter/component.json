@@ -1,0 +1,188 @@
+{
+  "name": "filter",
+  "version": "1.0.0",
+  "_about": "THE FILTER SECTION AS A BUILDING BLOCK. Twelve local ids, the DSP in dspblocks, the response screen and its six drag points in ui/. A consuming synth gives an instance either a `prefix` or an explicit `map`, never neither, and every local id below must appear in the resolved map or it is a build error. That IS the bindings checklist.",
+  "_ids": "LOCAL names, the ones that read right unprefixed. They are NOT what any host calls them: megasynth ships `f_shape`, `f_width`, `f_drive` and pins them with a map, because an id is persisted in saved state and must never be re-spelled once it has shipped.",
+  "params": [
+    {
+      "id": "cutoff",
+      "name": "Cutoff",
+      "unit": "Hz",
+      "min": 20.0,
+      "max": 20000.0,
+      "default": 1000.0,
+      "curve": "log",
+      "_curve": "The SCREEN's axis is ten octaves of log, cutNorm = log(cut/20)/log(1000), so half the travel is 20*sqrt(1000) = 632 Hz and not 10 kHz. A host whose own cutoff control is 0..1 converts in its adapter; the component is handed HERTZ.",
+      "provenance": "[FW] Nord Lead 3 - the cutoff control IS a MIDI note number, offset eight semitones, which is why the engine side carries it in cents above kAnchorHz 12.9782717 and converts ONCE (dsp/FilterModule.h CutoffTerms::hz). [FW] JP-8000 - the summed cents are converted in exact integers, hence the std::round."
+    },
+    {
+      "id": "resonance",
+      "name": "Resonance",
+      "min": 0.0,
+      "max": 1.0,
+      "default": 0.0,
+      "_meaning": "dB OF LIFT AT THE CORNER, not a percentage. ui/FilterScreen.h: lift = res * kDbCeil with kDbCeil 24, and its own note - 'a second order section's magnitude at its own corner is Q. res 0 is 0 dB of lift and res 1 is the ceiling'. So a panel legend for this control is 0 dB to 24 dB.",
+      "provenance": "[FW] JP-8000 - min(0x4000, (128-v)^2 + 32), an exact square."
+    },
+    {
+      "id": "shape",
+      "name": "Shape",
+      "min": 0.0,
+      "max": 3.0,
+      "default": 0.0,
+      "_meaning": "A CONTINUOUS MORPH, evenly spaced: LP at 0, BP at 1, HP at 2, notch at 3, read straight off db()'s three linear limbs. NOT four buttons - a panel may offer buttons that JUMP this parameter to 0/1/2/3, but they must write this one parameter and not a second one. Half the travel is 1.5, which is between BP and HP and has no name.",
+      "provenance": "[SCH] Elka Synthex sheet 4-10, board 410CST5800, re-read 2026-10-07 - one chain of four OTA sections (82K in, 330pF integrators) whose taps are summed through 100K/47K/56K/trimmer/56K/120K/220K and switched by 4066s on four control lines A B C D. The modes are weighted sums of the pole taps."
+    },
+    {
+      "id": "width",
+      "name": "Width",
+      "min": 0.0,
+      "max": 1.0,
+      "default": 0.5,
+      "_meaning": "Bandwidth, DECOUPLED from resonance. Ours - it is what makes BP alive. On the TWIN topology it is the split between the two filters, which is where that machine's remembered size comes from.",
+      "provenance": "ours"
+    },
+    {
+      "id": "drive",
+      "name": "Drive",
+      "min": 0.0,
+      "max": 1.0,
+      "default": 0.0,
+      "_meaning": "The asymmetric limiter's amount, IN THE FEEDBACK PATH - so it changes what resonance does rather than dirtying the output.",
+      "provenance": "[FW] Access Virus - one three-way asymmetric limiter on the feedback term."
+    },
+    {
+      "id": "slope",
+      "name": "Slope",
+      "unit": "dB/oct",
+      "min": 12.0,
+      "max": 24.0,
+      "default": 24.0,
+      "_meaning": "CONTINUOUS, detented at 12 and 24 with each anchor separately calibrated. Pole count is not a separate switch - it is this control's two anchors, so a 2-POLE / 4-POLE pair of buttons jumps this parameter to 12 and 24.",
+      "provenance": "[FW] Nord Lead 3 - slope is a gain shift, not a pole count. [SCH] the OB-Xa voice card carries two CEM3320s, A5 '2 POLE VCF' and A6, switched on the 2P4P line."
+    },
+    {
+      "id": "env_amount",
+      "name": "Env Amount",
+      "min": -2.0,
+      "max": 2.0,
+      "default": 0.0,
+      "_meaning": "Envelope into cutoff, in octaves, BIPOLAR so the envelope can invert.",
+      "provenance": "every machine"
+    },
+    {
+      "id": "key_track",
+      "name": "Key Track",
+      "min": 0.0,
+      "max": 1.0,
+      "default": 0.0,
+      "_meaning": "A KNOB, NOT A SWITCH - a continuous amount in octaves that applies whatever the shape. The OB-Xa's is a binary gate; a host that wants one wires a button that zeroes or restores this. Deliberately NOT written by the macro handle: how a filter follows the keyboard is a property of the instrument rather than of the sound.",
+      "provenance": "ours, from the OB-Xa's gate"
+    },
+    {
+      "id": "type",
+      "name": "Filter Type",
+      "kind": "choice",
+      "choices": [
+        "Super",
+        "SVF",
+        "Cascade",
+        "Twin"
+      ],
+      "default": 0,
+      "_meaning": "THE TOPOLOGY. The three beyond SUPER answer the one question shape, width and slope cannot reach - what resonance does to the BODY - and they answer it -7.2, -22.4 and -12.5 dB apart.",
+      "provenance": "0 SUPER ours, the fused filter. 1 SVF [FW] Nord Lead 2, two 2-pole state-variable stages in series. 2 CASCADE [SCH]+[DS] the SSM2044, four one-poles with feedback to the input node. 3 TWIN the Alesis Andromeda A6 pair, a 4-pole lowpass beside a 2-pole multimode, both running on every voice."
+    },
+    {
+      "id": "level",
+      "name": "Level",
+      "min": 0.0,
+      "max": 2.0,
+      "default": 1.0,
+      "_meaning": "Unity at 1.0, where x * 1.0f is exactly x - which is what lets a machine that only uses one filter stay bit-identical to itself before this existed."
+    },
+    {
+      "id": "pan",
+      "name": "Pan",
+      "min": 0.0,
+      "max": 1.0,
+      "default": 0.5,
+      "_meaning": "Where this filter sits in the image, unity at the centre. [MAN] Serum puts PAN in the filter strip, and once a filter can be fed by one oscillator that is the only place it can live: a routed lane has already been summed with whatever else the filter takes, so the LANE cannot place it and the FILTER can."
+    },
+    {
+      "id": "bypass",
+      "name": "Bypass",
+      "kind": "bool",
+      "default": false
+    }
+  ],
+  "screen": {
+    "id": "scope",
+    "_about": "ui/FilterScreen.h. A host paints the curve from fillCurve and the handles from fillHandles, and sends drags to dragged(). The screen reads and writes through two callbacks keyed by the LOCAL names above, so it never learns what a host calls them.",
+    "reads": [
+      "cutoff",
+      "resonance",
+      "shape",
+      "width",
+      "drive",
+      "slope"
+    ],
+    "writes": [
+      "cutoff",
+      "resonance",
+      "shape",
+      "width",
+      "drive",
+      "slope",
+      "env_amount"
+    ],
+    "handles": [
+      {
+        "name": "cutoff",
+        "writes": [
+          "cutoff",
+          "resonance"
+        ],
+        "_note": "2D - x is cutoff, y is the corner's lift"
+      },
+      {
+        "name": "drive",
+        "writes": [
+          "drive"
+        ]
+      },
+      {
+        "name": "slope",
+        "writes": [
+          "slope"
+        ]
+      },
+      {
+        "name": "width",
+        "writes": [
+          "width"
+        ]
+      },
+      {
+        "name": "shape",
+        "writes": [
+          "shape"
+        ],
+        "_note": "drag stops at highpass; the notch is knob-only"
+      },
+      {
+        "name": "morph",
+        "writes": [
+          "cutoff",
+          "shape",
+          "resonance",
+          "drive",
+          "width",
+          "env_amount"
+        ],
+        "size": 2.2,
+        "_note": "THE MACRO. Six parameters at once, drawn last and larger so it sits on top, and floating above the curve rather than on it - a point that stands for the whole filter does not belong on any one part of the response. key_track and slope are deliberately excluded: both are properties of WHICH filter rather than of the sound it makes, and slope is the only one a panel gives detented buttons, so moving it off 12 or 24 reads as the morph switching something off."
+      }
+    ]
+  }
+}

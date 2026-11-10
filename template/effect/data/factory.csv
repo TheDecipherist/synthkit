@@ -1,0 +1,28 @@
+# The factory bank. A program's CATEGORY comes from a structured field, never
+# from prose: the PCM 91's preset generator matched the user guide's English and
+# 93 of 433 reverbs measured as delays, because the sentence saying the
+# pre-echoes were OFF is what switched them ON.
+#
+# The category list is a DELAY AND MODULATION vocabulary, not a reverb one. A
+# list that puts most of the bank in "Other" is the wrong list - the eleven
+# reverb categories say nothing about a filter box, a looper or this.
+#
+# TODO(new machine): replace with the real bank, decoded from the machine's own
+# sysex or ROM, and with the machine's own category names.
+# id,name,category,drive,delay_time,feedback,damping,delay_mix,mod_rate,mod_depth,mod_mix,trem_depth,width
+P00,Init Effect,Other,0.00,300,0.00,18000,0.00,0.60,0.0,0.00,0.00,0.50
+P01,Quarter Echo,Delay,0.00,500,0.42,7000,0.45,0.30,0.0,0.00,0.00,0.55
+P02,Slapback,Delay,0.10,110,0.12,9000,0.40,0.30,0.0,0.00,0.00,0.30
+P03,Long Tape,Echo,0.28,650,0.58,3400,0.50,0.35,1.8,0.20,0.00,0.70
+P04,Dub Repeats,Echo,0.35,375,0.72,2200,0.55,0.22,2.6,0.15,0.00,0.80
+P05,Wide Chorus,Chorus,0.00,18,0.00,12000,0.00,0.45,6.5,0.85,0.00,0.95
+P06,Thick Chorus,Chorus,0.05,26,0.10,9000,0.10,0.28,9.0,0.90,0.00,0.90
+P07,Jet Flanger,Flanger,0.15,4,0.68,14000,0.45,0.70,3.2,0.80,0.00,0.60
+P08,Slow Flange,Flanger,0.00,6,0.55,11000,0.40,0.09,4.5,0.75,0.00,0.65
+P09,Doubler,Doubler,0.00,34,0.00,13000,0.50,0.50,2.0,0.35,0.00,0.85
+P10,Ping Pan,Pan,0.00,250,0.30,8000,0.45,1.20,0.0,0.00,0.85,1.00
+P11,Auto Wide,Modulation,0.00,14,0.20,10000,0.20,0.16,7.5,0.60,0.40,1.00
+P12,Grit Echo,Special,0.72,420,0.52,1800,0.50,0.40,1.2,0.25,0.00,0.60
+P13,Metal Comb,Special,0.45,2,0.80,16000,0.60,0.05,0.4,0.40,0.00,0.40
+P14,Ambient Wash,Modulation,0.00,900,0.66,2600,0.60,0.07,5.0,0.45,0.20,0.90
+P15,Tight Room,Delay,0.00,44,0.35,6000,0.38,0.60,0.0,0.00,0.00,0.45

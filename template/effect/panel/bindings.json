@@ -1,0 +1,151 @@
+{
+  "_about": "panel control id -> what it does. See ../synth/panel/bindings.json.",
+  "_why_this_file_is_checked": "The Reverb 4000's bindings.json was compiled into the binary and read by NO code: the real binding was a hard-coded if chain, 68 of 189 rows were silent, and nothing could notice. tools/controls_probe.cpp checks it in both directions and measures each control in the audio.",
+  "bindings": {
+    "drive": {
+      "kind": "value",
+      "param": "drive",
+      "name": "Input Drive",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "unit": "",
+      "provenance": "[REF]"
+    },
+    "delay_time": {
+      "kind": "value",
+      "param": "delay_time",
+      "name": "Delay Time",
+      "range": [
+        1.0,
+        2000.0
+      ],
+      "unit": "ms",
+      "provenance": "[REF]"
+    },
+    "feedback": {
+      "kind": "value",
+      "param": "feedback",
+      "name": "Feedback",
+      "range": [
+        0.0,
+        0.95
+      ],
+      "unit": "",
+      "provenance": "[REF]"
+    },
+    "damping": {
+      "kind": "value",
+      "param": "damping",
+      "name": "Feedback Damping",
+      "range": [
+        500.0,
+        18000.0
+      ],
+      "unit": "Hz",
+      "provenance": "[REF]"
+    },
+    "delay_mix": {
+      "kind": "value",
+      "param": "delay_mix",
+      "name": "Delay Mix",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "unit": "",
+      "provenance": "[REF]"
+    },
+    "mod_rate": {
+      "kind": "value",
+      "param": "mod_rate",
+      "name": "Modulation Rate",
+      "range": [
+        0.02,
+        8.0
+      ],
+      "unit": "Hz",
+      "provenance": "[REF]"
+    },
+    "mod_depth": {
+      "kind": "value",
+      "param": "mod_depth",
+      "name": "Modulation Depth",
+      "range": [
+        0.0,
+        12.0
+      ],
+      "unit": "ms",
+      "provenance": "[REF]"
+    },
+    "mod_mix": {
+      "kind": "value",
+      "param": "mod_mix",
+      "name": "Modulation Mix",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "unit": "",
+      "provenance": "[REF]"
+    },
+    "width": {
+      "kind": "value",
+      "param": "width",
+      "name": "Stereo Width",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "unit": "",
+      "provenance": "[REF]"
+    },
+    "output": {
+      "kind": "value",
+      "param": "output",
+      "name": "Output Level",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "unit": "",
+      "provenance": "[REF]"
+    },
+    "program.down": {
+      "kind": "button",
+      "action": "program.down",
+      "name": "previous program"
+    },
+    "program.up": {
+      "kind": "button",
+      "action": "program.up",
+      "name": "next program"
+    },
+    "program.write": {
+      "kind": "button",
+      "action": "program.write",
+      "name": "open the Patch Explorer at the user bank"
+    },
+    "bypass": {
+      "kind": "button",
+      "action": "bypass",
+      "name": "hard bypass - deliberately survives a program change, because it is an A/B tool and not patch state"
+    },
+    "screen.main": {
+      "kind": "screen",
+      "shows": "program name and number"
+    },
+    "trem_depth": {
+      "kind": "value",
+      "param": "trem_depth",
+      "name": "Tremolo Depth",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "unit": "",
+      "provenance": "[REF]"
+    }
+  }
+}

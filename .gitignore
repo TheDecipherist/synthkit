@@ -1,0 +1,15 @@
+build/
+build-*/
+node_modules/
+__pycache__/
+.DS_Store
+*.png.bak
+
+# build logs
+build-*.log
+
+# Compiled probes. A probe IS its source; the binary is regenerable output and
+# the command to rebuild it is in each probes/README.md.
+components/*/probes/*
+!components/*/probes/*.cpp
+!components/*/probes/*.md

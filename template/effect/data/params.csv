@@ -1,0 +1,19 @@
+# The parameter table. ONE place. See ../synth/data/params.csv for why, and
+# docs/provenance.md for the tags.
+#
+# TODO(new machine): replace every row. A generic delay-and-modulation box is
+# nobody's machine. And take a range from the FIRMWARE's own arithmetic: the
+# Reverb 4000's grid is 20*2^(n/24), so its printed "500 Hz" is 507.968, and
+# typing the printed numbers clamped 91 stored values across 174 programs.
+# id,name,kind,min,max,default,unit,provenance
+drive,Input Drive,float,0,1,0,,[REF]
+delay_time,Delay Time,float,1,2000,300,ms,[REF]
+feedback,Feedback,float,0,0.95,0.3,,[REF]
+damping,Feedback Damping,float,500,18000,6000,Hz,[REF]
+delay_mix,Delay Mix,float,0,1,0.35,,[REF]
+mod_rate,Modulation Rate,float,0.02,8,0.6,Hz,[REF]
+mod_depth,Modulation Depth,float,0,12,0,ms,[REF]
+mod_mix,Modulation Mix,float,0,1,0,,[REF]
+trem_depth,Tremolo Depth,float,0,1,0,,[REF] the same LFO on the output level - the cleanest destination to MEASURE a synced rate against
+width,Stereo Width,float,0,1,0.5,,[REF]
+output,Output Level,float,0,1,0.8,,[REF]

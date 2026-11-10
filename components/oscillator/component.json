@@ -1,0 +1,86 @@
+{
+  "name": "oscillator",
+  "version": "1.0.0",
+  "_about": "THE OSCILLATOR SECTION AS A BUILDING BLOCK. Two oscillators, eleven local ids, the waveform generators in dspblocks (dsp/JpOsc.h) and this section's own word arithmetic in dsp/OscModule.h. A consuming synth gives an instance either a `prefix` or an explicit `map`, never neither, and every local id below must appear in the resolved map or it is a build error. That IS the bindings checklist.",
+  "_ids": "LOCAL names, the ones that read right unprefixed. They are NOT what any host calls them: jp8000 ships bare `osc1_wave` and pins it with a map, because an id is persisted in saved state and must never be re-spelled once it has shipped.",
+  "_the_one_thing": "A CONTROL'S MEANING CHANGES WITH THE WAVEFORM AND ITS CURVE DOES NOT. ctrl1 and ctrl2 are two bytes and thirteen names: DETUNE/MIX on super saw, FLT FREQ/FLT RESO on noise, FEEDBK AMT/HARMONICS on the feedback oscillator, PULSE WIDTH/PWM DEPTH on the square, OFFSET/SHAPE on triangle mod. Declaring them as thirteen parameters is the mistake: the machine has two, and a panel that shows a different LEGEND per waveform is showing the same parameter.",
+  "params": [
+    {
+      "id": "osc1_wave",
+      "name": "OSC1 Waveform",
+      "min": 0, "max": 6, "default": 0,
+      "_meaning": "SUPER SAW 0, TRIANGLE MOD 1, NOISE 2, FEEDBACK OSC 3, SQR (PWM) 4, SAW 5, TRI 6. The order is not cosmetic: the firmware's per-waveform cases appear in exactly this sequence, which is what anchors every reading below to its case.",
+      "provenance": "[FW] the dispatch at 0xA5B0 onward. [EMU] confirmed 2026-10-07 by counting the firmware's own control reads, five strict ctrl1/ctrl2 pairs in index order, anchored by the NOISE case carrying its own cutoff and resonance tables."
+    },
+    {
+      "id": "osc1_ctrl1",
+      "name": "OSC1 Control 1",
+      "min": 0, "max": 127, "default": 0,
+      "_meaning": "One byte, six meanings. DETUNE on super saw, OFFSET on triangle mod, FLT FREQ on noise, FEEDBK AMT on the feedback oscillator, PULSE WIDTH on the square. On SAW it does nothing at all, measured.",
+      "provenance": "[FW 0xA5B0] super saw detune word = (table[c1] >> 1) + 2, the table being the unit's own and handed in, never embedded here. [FW 0xA610] noise colour = 100*c1 - 1292 cents, and a ten-point sweep measured 100.5 cents per step, agreeing to 0.5%."
+    },
+    {
+      "id": "osc1_ctrl2",
+      "name": "OSC1 Control 2",
+      "min": 0, "max": 127, "default": 0,
+      "_meaning": "The other byte. MIX on super saw, SHAPE on triangle mod, FLT RESO on noise, HARMONICS on the feedback oscillator, PWM DEPTH on the square. It is RESONANCE on noise and not a level, which was a withdrawn finding before it was a measured one.",
+      "provenance": "[FW 0xA5B0] super saw mix word = 64*c2 + 400. [EMU] on noise, level rises 17.7 dB while spectral flatness HALVES, 0.0065 to 0.0026, which a gain cannot do. [EMU] a common path exists for the last two waveforms: ctrl2 adds the same absolute inter-harmonic content to every waveform, verified across 21 points to a worst error of 0.41 dB, and it is merely masked on SAW whose own floor sits 5 dB higher."
+    },
+    {
+      "id": "osc2_wave",
+      "name": "OSC2 Waveform",
+      "min": 0, "max": 2, "default": 0,
+      "_meaning": "SAW 0, SQUARE 1, TRIANGLE 2. THREE of them, and a fourth value clamps to the third rather than wrapping.",
+      "provenance": "[EMU] measured by rendering value 3 and finding it identical to value 2 on every measure, to within 0.1 dB and 2 Hz."
+    },
+    {
+      "id": "osc2_ctrl1",
+      "name": "OSC2 Control 1",
+      "min": 0, "max": 127, "default": 0,
+      "_meaning": "PULSE WIDTH, and it exists only on the square. On saw and triangle this control does nothing, flat to 0.1 dB across its full travel.",
+      "provenance": "[EMU] on the square, level -18.3 to -28.5 dB with the centroid rising 5640 to 6498 Hz."
+    },
+    {
+      "id": "osc2_ctrl2",
+      "name": "OSC2 Control 2",
+      "min": 0, "max": 127, "default": 0,
+      "_meaning": "PWM DEPTH, square only, same as ctrl1.",
+      "provenance": "[EMU] on the square, spectral flatness 0.0804 to 0.3023 at CONSTANT level, which is the signature of sidebands rather than a gain."
+    },
+    {
+      "id": "osc2_range",
+      "name": "OSC2 Range",
+      "min": -24, "max": 24, "default": 0, "unit": "semitones",
+      "_meaning": "Coarse tuning in semitones.",
+      "provenance": "[MAN] the owner's manual range chart."
+    },
+    {
+      "id": "osc2_fine",
+      "name": "OSC2 Fine",
+      "min": 0, "max": 100, "default": 50, "unit": "cents",
+      "_meaning": "Fine tuning, and ONE BYTE carries it together with the WIDE switch: +WIDE gives 50*(fine-2) cents clamped to 0..4800, -WIDE gives -50*(98-fine) clamped the same way. FINE and FINE WIDE are not two parameters.",
+      "provenance": "[FW] the 101-entry wide table at 0x6ADFA."
+    },
+    {
+      "id": "osc2_sync",
+      "name": "OSC2 Sync",
+      "min": 0, "max": 1, "default": 0,
+      "_meaning": "Hard sync: OSC2's phase resets on OSC1's wrap. The wrap flag has to be threaded through both oscillators in order and not reset between them, which is why the carrier is in this component and not in the block.",
+      "provenance": "[MAN] panel LED. [FW] the dispatch threads a wrap flag."
+    },
+    {
+      "id": "balance",
+      "name": "OSC Balance",
+      "min": 0, "max": 127, "default": 64,
+      "_meaning": "0 is OSC1 alone, 127 is OSC2 alone. The default is the CENTRE, which is worth knowing before measuring anything: the first oscillator sweeps made against this component's donor were invalid because OSC2 drowned OSC1 at the default and the null result looked like a working measurement.",
+      "provenance": "[FW 0x17] crossfades OSC1 against whichever of OSC2 or the ring product the switch selected, so ring REPLACES OSC2 rather than adding to it. [EMU] the two ends isolate each oscillator, confirmed by each one's waveform character disappearing."
+    },
+    {
+      "id": "cross_mod",
+      "name": "Cross Mod Depth",
+      "min": 0, "max": 127, "default": 0,
+      "_meaning": "OSC2 into OSC1's frequency input. UNAVAILABLE when OSC1 is SUPER SAW or NOISE, and the section must ignore the knob there rather than let it do something the machine does not do.",
+      "provenance": "[MAN] \"If the OSC 1 section [WAVEFORM] is set to SUPER SAW or NOISE, the Cross Modulation effect can not be obtained.\" [FW] a knob, not a switch: it appears in the motion tables as a continuous value."
+    }
+  ]
+}

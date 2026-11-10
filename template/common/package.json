@@ -1,0 +1,14 @@
+{
+  "name": "{{name}}",
+  "private": true,
+  "version": "0.1.0",
+  "description": "{{DISPLAY}} panel spec ({{BRAND}} {{MODEL}}) - rendered by synthpanel-creator",
+  "scripts": {
+    "panel:validate": "node ../synthpanel-creator/bin/synthpanel.js validate panel/panel.json",
+    "panel:check": "node ../synthpanel-creator/bin/synthpanel.js check panel/panel.json",
+    "panel:html": "node ../synthpanel-creator/bin/synthpanel.js render panel/panel.json -o build/panel.html",
+    "panel:png": "node ../synthpanel-creator/bin/synthpanel.js render panel/panel.json -o build/panel.png --static",
+    "panel:native": "node ../synthpanel-creator/bin/synthpanel.js export-native panel/panel.json -o resources/native"
+  },
+  "devDependencies": { "synthpanel-creator": "file:../synthpanel-creator" }
+}

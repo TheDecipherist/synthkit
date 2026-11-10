@@ -1,0 +1,224 @@
+{
+ "name": "ExampleFx",
+ "size": {
+  "width": 1180,
+  "height": 420
+ },
+ "theme": "arcturus-navy",
+ "header": {
+  "brand": "The Decipherist",
+  "title": "{{DISPLAY}}"
+ },
+ "sections": [
+  {
+   "id": "input",
+   "title": "INPUT",
+   "rect": [
+    40,
+    74,
+    124,
+    168
+   ],
+   "style": "outline",
+   "controls": [
+    {
+     "type": "knob",
+     "id": "drive",
+     "x": 102,
+     "y": 150,
+     "r": 28,
+     "label": "Input Drive",
+     "labelBelow": true
+    }
+   ]
+  },
+  {
+   "id": "delay",
+   "title": "DELAY",
+   "rect": [
+    178,
+    74,
+    388,
+    168
+   ],
+   "style": "outline",
+   "controls": [
+    {
+     "type": "knob",
+     "id": "delay_time",
+     "x": 240,
+     "y": 150,
+     "r": 28,
+     "label": "Time",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "feedback",
+     "x": 328,
+     "y": 150,
+     "r": 28,
+     "label": "Feedback",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "damping",
+     "x": 416,
+     "y": 150,
+     "r": 28,
+     "label": "Damping",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "delay_mix",
+     "x": 504,
+     "y": 150,
+     "r": 28,
+     "label": "Mix",
+     "labelBelow": true
+    }
+   ]
+  },
+  {
+   "id": "modulation",
+   "title": "MODULATION",
+   "rect": [
+    580,
+    74,
+    388,
+    168
+   ],
+   "style": "outline",
+   "controls": [
+    {
+     "type": "knob",
+     "id": "mod_rate",
+     "x": 642,
+     "y": 150,
+     "r": 28,
+     "label": "Rate",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "mod_depth",
+     "x": 730,
+     "y": 150,
+     "r": 28,
+     "label": "Depth",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "mod_mix",
+     "x": 818,
+     "y": 150,
+     "r": 28,
+     "label": "Mix",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "trem_depth",
+     "x": 906,
+     "y": 150,
+     "r": 28,
+     "label": "Tremolo",
+     "labelBelow": true
+    }
+   ]
+  },
+  {
+   "id": "output",
+   "title": "OUTPUT",
+   "rect": [
+    40,
+    258,
+    212,
+    150
+   ],
+   "style": "outline",
+   "controls": [
+    {
+     "type": "knob",
+     "id": "width",
+     "x": 102,
+     "y": 325,
+     "r": 28,
+     "label": "Stereo Width",
+     "labelBelow": true
+    },
+    {
+     "type": "knob",
+     "id": "output",
+     "x": 190,
+     "y": 325,
+     "r": 28,
+     "label": "Output Level",
+     "labelBelow": true
+    }
+   ]
+  },
+  {
+   "id": "program",
+   "title": "PROGRAM",
+   "rect": [
+    266,
+    258,
+    874,
+    150
+   ],
+   "style": "outline",
+   "controls": [
+    {
+     "type": "screen",
+     "id": "screen.main",
+     "rect": [
+      284,
+      288,
+      240,
+      58
+     ]
+    },
+    {
+     "type": "cap",
+     "id": "program.down",
+     "x": 542,
+     "y": 290,
+     "w": 62,
+     "h": 24,
+     "label": "PREV"
+    },
+    {
+     "type": "cap",
+     "id": "program.up",
+     "x": 542,
+     "y": 322,
+     "w": 62,
+     "h": 24,
+     "label": "NEXT"
+    },
+    {
+     "type": "cap",
+     "id": "program.write",
+     "x": 614,
+     "y": 290,
+     "w": 62,
+     "h": 24,
+     "label": "WRITE"
+    },
+    {
+     "type": "cap",
+     "id": "bypass",
+     "x": 614,
+     "y": 322,
+     "w": 62,
+     "h": 24,
+     "label": "BYPASS"
+    }
+   ]
+  }
+ ]
+}
